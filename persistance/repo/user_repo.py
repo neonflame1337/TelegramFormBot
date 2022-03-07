@@ -13,7 +13,7 @@ class UserRepo:
     def __map_user(self, row: tuple) -> Union[UserEntity, None]:
         if row is None:
             return None
-        return UserEntity(row[0], row[4], row[1], row[2], row[3])
+        return UserEntity(row[0], row[4], row[1], row[2], row[3], row[5])
 
     def find_all_ready_and_not_processed(self) -> list:
         result_set = self.cursor.execute(
@@ -40,8 +40,8 @@ class UserRepo:
     def save_or_update(self, user: UserEntity):
         self.cursor.execute(
             """
-            insert or replace into user (id, current_question_id, ready, processed, username)
-            values({0}, {1}, {2}, {3}, '{4}');
-            """.format(user.id, user.current_question, user.ready, user.processed, user.username)
+            insert or replace into user (id, current_question_id, ready, processed, username, contact_info)
+            values({0}, {1}, {2}, {3}, '{4}', '{5}');
+            """.format(user.id, user.current_question, user.ready, user.processed, user.username, user.contact_info)
         )
         self.connection.commit()
