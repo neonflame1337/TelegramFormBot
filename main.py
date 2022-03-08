@@ -8,7 +8,7 @@ from persistance.repo.user_repo import UserRepo
 from persistance.entity.question_entity import QuestionEntity
 from persistance.repo.question_repo import QuestionRepo
 
-bot: Bot = Bot("5194452695:AAE-iTnAvsaX_E82ltnc3NaDNlE752vftPc")
+bot: Bot = Bot("5268496068:AAH_0VDmWopKJmXT9PqwnkOype3pzeUCA0A")
 dp: Dispatcher = Dispatcher(bot)
 
 db_connection = DbConnection("db")
@@ -114,6 +114,7 @@ async def process(callback: CallbackQuery):
     await callback.answer("Оброблено")
     await callback.message.delete()
 
+    callback.message.from_user = callback.from_user
     await process_handler(callback.message)
 
 
